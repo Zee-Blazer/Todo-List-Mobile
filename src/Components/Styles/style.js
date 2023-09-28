@@ -68,7 +68,8 @@ export const styled = StyleSheet.create({
     addToDo: {
         position: 'absolute',
         top: '86%',
-        left: '78%'
+        left: '78%',
+        zIndex: 5
     },
     taskListCont: {
         borderTopColor: theme.colors.borders.primary,
@@ -107,5 +108,49 @@ export const styled = StyleSheet.create({
         color: theme.colors.text.danger, 
         textAlign: 'left',
         fontSize: theme.fontSizes.xsm
+    },
+    createHeader: {
+        flexDirection: "row",
+        paddingHorizontal: 6
+    },
+    createHeaderTitle: {
+        textAlign: 'center',
+        flex: 1,
+        fontSize: theme.fontSizes.lg,
+        marginTop: 5,
+        marginRight: 29,
+        fontFamily: theme.fonts.body,
+        fontWeight: theme.fontWeights.bold,
+        color: "gray", //theme.colors.text.secondary
+    },
+    createInput: {
+        width: '100%',
+        height: 28
+    },
+    inputContainer: {
+        width: '80%',
+        marginVertical: 14,
+        marginHorizontal: "10%",
+        backgroundColor: theme.colors.bg.secondary,
+        paddingHorizontal: 8,
+        paddingVertical: 6,
+        borderRadius: 8,
+        marginTop: 42
+    },
+    addTaskBtn: {
+        backgroundColor: theme.colors.bg.tertiary,
+        width: 224,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        paddingVertical: 5,
+        borderRadius: 8,
+        marginTop: 489,
+        left: '16%'
+    },
+    addTaskBtnText: {
+        color: theme.colors.text.primary,
+        marginTop: 2,
+        fontSize: theme.fontSizes.lg,
+        marginLeft: 2
     }
 });

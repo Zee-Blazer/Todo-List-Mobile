@@ -1,21 +1,34 @@
 
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 // Styling
 import { styled as HomeStyle } from '../Styles/style';
 
-export const NavItems = ({ type }) => {
+export const NavItems = ({ type, changeSection, section }) => {
+
+    const itemDisplay = [
+        { text: "Hourly", section: "Hourly" },
+        { text: "Daily", section: "Daily" },
+        { text: "Weekly", section: "Weekly" },
+        { text: "Monthly", section: "Monthly" },
+    ];
 
     return (
         <>
             <View style={ HomeStyle.NavCont }>
-                <View style={ HomeStyle.NavItemActive }>
-                    <Text style={ HomeStyle.NavItem }>Hourly</Text>
-                </View>
-                
-                <Text style={ HomeStyle.NavItem }>Daily</Text>
-                <Text style={ HomeStyle.NavItem }>Weekly</Text>
-                <Text style={ HomeStyle.NavItem }>Monthly</Text>
+
+                { itemDisplay && itemDisplay.map( (item, i) => (
+                    <TouchableOpacity key={i} onPress={ () => changeSection(item.section) }>
+                        { 
+                            section == item.section ? 
+                                <View style={ HomeStyle.NavItemActive }>
+                                    <Text style={ HomeStyle.NavItem }>{ item.text }</Text>
+                                </View> :
+                                <Text style={ HomeStyle.NavItem }>{ item.text }</Text> 
+                        }
+                    </TouchableOpacity>
+                ) ) }
+
             </View>
 
             { type == "History" && <View style={ HomeStyle.NextNavCont }>
