@@ -125,32 +125,63 @@ export const styled = StyleSheet.create({
     },
     createInput: {
         width: '100%',
-        height: 28
+        minHeight: 28,
+        borderBottomWidth: 2,
+        borderBottomColor: "grey",
+        paddingBottom: 32
     },
     inputContainer: {
         width: '80%',
-        marginVertical: 14,
         marginHorizontal: "10%",
         backgroundColor: theme.colors.bg.secondary,
         paddingHorizontal: 8,
         paddingVertical: 6,
         borderRadius: 8,
-        marginTop: 42
+        marginTop: 42,
+        marginBottom: 36,
+        paddingBottom: 18,
+        shadowOffset: {width: -2, height: 4},  
+        shadowColor: '#171717',  
+        shadowOpacity: 0.2,  
+        shadowRadius: 3,  
+    },
+    typeInputCont: {
+        width: '80%',
+        marginHorizontal: "10%",
+        backgroundColor: theme.colors.bg.secondary,
+        paddingHorizontal: 10,
+        paddingVertical: 14,
+        borderRadius: 8,
+        marginTop: 12,
+        flexDirection: 'row',
+        shadowOffset: {width: -2, height: 4},  
+        shadowColor: '#171717',  
+        shadowOpacity: 0.2,  
+        shadowRadius: 3,  
+    },
+    timeSelector: {
+        fontSize: theme.fontSizes.medium,
+        marginHorizontal: 6,
+        color: "grey",
+        marginTop: 1,
+        fontSize: theme.fontSizes.lg
     },
     addTaskBtn: {
+        position: "absolute",
+        top: 674,
+        left: "24%",
         backgroundColor: theme.colors.bg.tertiary,
         width: 224,
         flexDirection: 'row',
         justifyContent: 'center',
         paddingVertical: 5,
         borderRadius: 8,
-        marginTop: 489,
-        left: '16%'
     },
     addTaskBtnText: {
         color: theme.colors.text.primary,
-        marginTop: 2,
-        fontSize: theme.fontSizes.lg,
+        marginTop: 4,
+        fontSize: theme.fontSizes.medium,
+        fontWeight: theme.fontWeights.bold,
         marginLeft: 2
     }
 });
