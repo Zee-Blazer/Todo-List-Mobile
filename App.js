@@ -5,6 +5,9 @@ import { useFonts } from 'expo-font';
 // Navigation Container
 import { MainNavigator } from './src/Infrastructure/Navigation';
 
+// Context Provider
+import { ListContextProvider } from './src/Services/list.context';
+
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -22,7 +25,9 @@ export default function App() {
 
   return (
     <>
-      <MainNavigator />
+      <ListContextProvider>
+        <MainNavigator />
+      </ListContextProvider>
       <StatusBar style="auto" />
     </>
   );

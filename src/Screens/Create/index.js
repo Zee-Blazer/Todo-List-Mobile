@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
-import { Text, View, TextInput, TouchableOpacity, ScrollView, Pressable } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, ScrollView, Pressable, Alert } from 'react-native';
 
 // Navigation
 import { useNavigation } from '@react-navigation/native';
+
+// Context
+import { ListContext } from '../../Services/list.context';
 
 import moment from 'moment';
 
@@ -29,6 +32,13 @@ import { FontAwesome } from '@expo/vector-icons';
 export const CreateTaskScreen = () => {
 
     const navigation = useNavigation();
+
+    const currentTime = moment().format("MMMM-Do-h-a");
+    const currentDay = moment().format("YYYY-MMMM-Do");
+    const currentMonth = moment().format("YYYY-MMMM");
+
+    // Context
+    const { state, dispatch } = useContext(ListContext)
 
     const month = [
         "January","February","March","April",
@@ -64,19 +74,82 @@ export const CreateTaskScreen = () => {
     const addTask = () => {
         switch(section){
             case "Hourly":
-                console.log(task, `${data.getHours()<12 ? data.getHours()==0 ? "12":data.getHours() : data.getHours()-12}:${data.getMinutes()} ${data.getHours()>=0&&data.getHours()<12 ? "AM" : "PM"}`)
+                if(!task){
+                    Alert.alert("Information not filled", "Kindly enter your task");
+                }
+                else if(!data){
+                    Alert.alert("Information not filled", "Kindly enter your time");
+                }
+                else{
+                    const time = `${data.getHours()<12 ? data.getHours()==0 ? "12":data.getHours() : data.getHours()-12}:${data.getMinutes()} ${data.getHours()>=0&&data.getHours()<12 ? "AM" : "PM"}`;
+                    dispatch({ 
+                        type: "task-hourly", 
+                        value: { 
+                            header: `${day[data.getDay()]}-${month[data.getMonth()]}-${data.getHours()<12 ? data.getHours()==0 ? "12":data.getHours() : data.getHours()-12}-${data.getHours()>=0&&data.getHours()<12 ? "AM" : "PM"}`,
+                            task, 
+                            time
+                        } 
+                    })
+                    navigation.goBack()
+                }
                 break;
+
             case "Daily":
-                console.log(task, day[data.getDay()])
+                if(!task){
+                    Alert.alert("Information not filled", "Kindly enter your task");
+                }
+                else if(!data){
+                    Alert.alert("Information not filled", "Kindly enter your Day");
+                }
+                else{
+                    const d = day[data.getDay()];
+                    dispatch({ 
+                        type: "task-daily", 
+                        value: { 
+                            header: `${data.getFullYear()}-${month[data.getMonth()]}-${day[data.getDay()]}`,
+                            task, 
+                            day: d
+                        } 
+                    })
+                    navigation.goBack()
+                }
                 break;
+
             case "Weekly":
                 console.log(task, data)
                 break;
+
             case "Monthly":
-                console.log(task, month[data.getMonth()])
+                if(!task){
+                    Alert.alert("Information not filled", "Kindly enter your task");
+                }
+                else if(!data){
+                    Alert.alert("Information not filled", "Kindly enter your Month");
+                }
+                else{
+                    const m = day[data.getMonth()];
+                    dispatch({ 
+                        type: "task-monthly", 
+                        value: { 
+                            header: `${data.getFullYear()}-${month[data.getMonth()]}}`,
+                            task, 
+                            month: m
+                        } 
+                    })
+                    navigation.goBack()
+                }
+
+                break;
+
+            default:
+                console.log("No default");
                 break;
         }
     }
+
+    // useEffect( () => {
+    //     dispatch({ type: "task-hourly", value: moment().format("MMMM-Do-h-a") });
+    // }, [] )
 
     return (
         <SafeAreaView style={{ height: '100%' }}>

@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+// Async Storage
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -19,6 +22,10 @@ export const TaskScreen = () => {
     const [section, setSection] = useState("Hourly");
 
     const changeSection = (e) => setSection(e);
+
+    // useEffect( async () => {
+    //     console.log(JSON.parse(await AsyncStorage.getItem("@task-hourly")));
+    // }, [] )
 
     return (
         <View style={ HomeStyle.body }>
