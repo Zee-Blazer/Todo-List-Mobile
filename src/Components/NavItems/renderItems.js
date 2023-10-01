@@ -3,41 +3,50 @@ import React, { useState, useEffect } from 'react';
 // Async Storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { FlatList, Text } from 'react-native';
+
 // Components
 import { TaskList } from "../AddToDo/taskList";
 
-export const RenderItems = ({ section }) => {
-
-    const [data, setData] = useState();
-
-    useEffect( async () => {
-        setData(JSON.parse(await AsyncStorage.getItem("@task-hourly")));
-    }, [] )
-
-    useEffect( () => {
-        if(data) {
-            for(let i =0; i<=data.length; i++){
-                console.log(i);
-            }
-        }
-    }, [data] )
+export const RenderItems = ({ section, hourly, daily, monthly, type }) => {
 
     let elements;
 
     switch(section){
         case "Hourly":
             elements = <>
-                <TaskList />
+                <FlatList 
+                    data={ hourly }
+                    renderItem={ ({item}) => 
+                        <TaskList item={ item } section={ section } moment={ item.time } type={ type } /> 
+                    }
+                    keyExtractor={ item => item }
+                />
             </>
             break;
         case "Daily":
-            elements = <></>
+            elements = <>
+                <FlatList 
+                    data={ daily }
+                    renderItem={ ({item}) => 
+                        <TaskList item={ item } section={ section } moment={ item.day } type={ type } /> 
+                    }
+                    keyExtractor={ item => item }
+                />
+            </>
             break;
         case "Weekly":
             elements = <></>
             break;
         case "Monthly":
-            elements = <></>
+            elements = <>
+                <FlatList 
+                    data={ monthly }
+                    renderItem={ ({item}) => 
+                        <TaskList item={ item } section={ section } moment={ item.month } type={ type } /> 
+                    }
+                    keyExtractor={ item => item }
+                /></>
             break;
     }
 

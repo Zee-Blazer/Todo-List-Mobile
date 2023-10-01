@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 // Stylings
 import { styled as HomeStyle } from '../../Components/Styles/style';
 
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, RefreshControl } from "react-native";
 
 // Components
 import { LogoHeader } from '../../Components/LogoHeader'; // The Header Logo with it's title
@@ -21,11 +21,29 @@ export const TaskScreen = () => {
 
     const [section, setSection] = useState("Hourly");
 
+    const [refresh, setRefresh] = useState(false);
+    const [hourly, setHourly] = useState();
+    const [daily, setDaily] = useState();
+    const [monthly, setMonthly] = useState();
+
     const changeSection = (e) => setSection(e);
 
-    // useEffect( async () => {
-    //     console.log(JSON.parse(await AsyncStorage.getItem("@task-hourly")));
-    // }, [] )
+    useEffect( async () => {
+        setHourly(JSON.parse(await AsyncStorage.getItem("@task-hourly")));
+        setDaily(JSON.parse(await AsyncStorage.getItem("@task-daily")));
+        setMonthly(JSON.parse(await AsyncStorage.getItem("@task-monthly")));
+    }, [] )
+
+    const refreshing = async () => {
+        setHourly(JSON.parse(await AsyncStorage.getItem("@task-hourly")));
+        setDaily(JSON.parse(await AsyncStorage.getItem("@task-daily")));
+        setMonthly(JSON.parse(await AsyncStorage.getItem("@task-monthly")));
+        setRefresh(false);
+    }
+
+    useEffect( () => {
+        console.log(monthly)
+    }, [monthly] )
 
     return (
         <View style={ HomeStyle.body }>
@@ -33,8 +51,18 @@ export const TaskScreen = () => {
             <NavItems type="Task" section={ section } changeSection={ changeSection } />
             <AddToDo />
 
-            <ScrollView>
-                <RenderItems section={ section } />
+            <ScrollView
+                refreshControl={
+                    <RefreshControl refreshing={refresh} onRefresh={ refreshing } />
+                }
+            >
+                <RenderItems 
+                    section={ section } 
+                    hourly={ hourly } 
+                    daily={ daily }
+                    monthly={ monthly }
+                    type="Task"
+                />
             </ScrollView>
         </View>
     )

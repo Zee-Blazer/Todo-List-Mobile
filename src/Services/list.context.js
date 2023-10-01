@@ -23,87 +23,75 @@ const reducer = async (state, action) => {
 
         case "task-hourly": 
             const obj = await AsyncStorage.getItem("@task-hourly");
-            let data;
+            // let data;
+            // if(obj == null){
+            //     let newObj = {};
+            //     newObj[`${value.header.toString()}`] = [{ task: value.task, time: value.time }];
+            //     await AsyncStorage.setItem("@task-hourly", JSON.stringify(newObj))
+            // }
+            // else{
+            //     const item = `${value.header.toString()}`;
+            //     const mainObj = JSON.parse(obj);
+
+            //     if(searchKeys(mainObj,item)){
+            //         mainObj[item].push({ task: value.task, time: value.time })
+            //         await AsyncStorage.setItem("@task-hourly", JSON.stringify(mainObj));
+            //         data = await AsyncStorage.getItem("@task-hourly");
+            //     }
+            //     else{
+            //         mainObj[item] = [{ task: value.task, time: value.time }]
+            //         await AsyncStorage.setItem("@task-hourly", JSON.stringify(mainObj));
+            //         data = await AsyncStorage.getItem("@task-hourly");
+            //     }
+
+            // } 
+            // console.log(JSON.parse(data));
             if(obj == null){
-                let newObj = {};
-                newObj[`${value.header.toString()}`] = [{ task: value.task, time: value.time }];
-                await AsyncStorage.setItem("@task-hourly", JSON.stringify(newObj))
+                await AsyncStorage.setItem("@task-hourly", JSON.stringify([
+                    { task: value.task, time: value.time, completed: false }
+                ]))
+                // console.log(obj);
             }
             else{
-                const item = `${value.header.toString()}`;
-                const mainObj = JSON.parse(obj);
+                const newObj = JSON.parse(obj) //.push({ task: value.task, time: value.time, completed: false });
+                newObj.push({ task: value.task, time: value.time, completed: false })
+                await AsyncStorage.setItem("@task-hourly", JSON.stringify(newObj));
+            }
 
-                if(searchKeys(mainObj,item)){
-                    mainObj[item].push({ task: value.task, time: value.time })
-                    await AsyncStorage.setItem("@task-hourly", JSON.stringify(mainObj));
-                    data = await AsyncStorage.getItem("@task-hourly");
-                }
-                else{
-                    mainObj[item] = [{ task: value.task, time: value.time }]
-                    await AsyncStorage.setItem("@task-hourly", JSON.stringify(mainObj));
-                    data = await AsyncStorage.getItem("@task-hourly");
-                }
-
-            } 
-            console.log(JSON.parse(data));
             // await AsyncStorage.setItem("@task-hourly", ""); //Erase Data
             return state;
 
         case "task-daily":
             const obj2 = await AsyncStorage.getItem("@task-daily");
-            let data2;
             if(obj2 == null){
-                let newObj = {};
-                newObj[`${value.header.toString()}`] = [{ task: value.task, day: value.day }];
-                await AsyncStorage.setItem("@task-daily", JSON.stringify(newObj))
+                await AsyncStorage.setItem("@task-daily", JSON.stringify([
+                    { task: value.task, day: value.day, completed: false }
+                ]))
+                // console.log(obj);
             }
             else{
-                const item = `${value.header.toString()}`;
-                const mainObj = JSON.parse(obj);
-
-                if(searchKeys(mainObj,item)){
-                    mainObj[item].push({ task: value.task, day: value.day })
-                    await AsyncStorage.setItem("@task-daily", JSON.stringify(mainObj));
-                    data2 = await AsyncStorage.getItem("@task-daily");
-                }
-                else{
-                    mainObj[item] = [{ task: value.task, day: value.day }]
-                    await AsyncStorage.setItem("@task-daily", JSON.stringify(mainObj));
-                    data2 = await AsyncStorage.getItem("@task-daily");
-                }
-
-            } 
-            console.log(JSON.parse(data2));
+                const newObj = JSON.parse(obj2) //.push({ task: value.task, time: value.time, completed: false });
+                newObj.push({ task: value.task, day: value.day, completed: false })
+                await AsyncStorage.setItem("@task-daily", JSON.stringify(newObj));
+            }
             // await AsyncStorage.setItem("@task-daily", ""); // Erase Data
             
             return state;
 
         case "task-monthly":
             const obj3 = await AsyncStorage.getItem("@task-monthly");
-            let data3;
             if(obj3 == null){
-                let newObj = {};
-                newObj[`${value.header.toString()}`] = [{ task: value.task, month: value.month }];
-                await AsyncStorage.setItem("@task-monthly", JSON.stringify(newObj))
+                await AsyncStorage.setItem("@task-monthly", JSON.stringify([
+                    { task: value.task, month: value.month, completed: false }
+                ]))
+                // console.log(obj);
             }
             else{
-                const item = `${value.header.toString()}`;
-                const mainObj = JSON.parse(obj);
-
-                if(searchKeys(mainObj,item)){
-                    mainObj[item].push({ task: value.task, month: value.month })
-                    await AsyncStorage.setItem("@task-monthly", JSON.stringify(mainObj));
-                    data3 = await AsyncStorage.getItem("@task-monthly");
-                }
-                else{
-                    mainObj[item] = [{ task: value.task, month: value.month }]
-                    await AsyncStorage.setItem("@task-monthly", JSON.stringify(mainObj));
-                    data3 = await AsyncStorage.getItem("@task-monthly");
-                }
-
-            } 
-            console.log(JSON.parse(data3));
-            // await AsyncStorage.setItem("@task-weekly", "");
+                const newObj = JSON.parse(obj3) //.push({ task: value.task, time: value.time, completed: false });
+                newObj.push({ task: value.task, month: value.month, completed: false })
+                await AsyncStorage.setItem("@task-monthly", JSON.stringify(newObj));
+            }
+            // await AsyncStorage.setItem("@task-monthly", "");
             
             return state;
 

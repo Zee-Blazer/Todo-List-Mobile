@@ -127,7 +127,7 @@ export const CreateTaskScreen = () => {
                     Alert.alert("Information not filled", "Kindly enter your Month");
                 }
                 else{
-                    const m = day[data.getMonth()];
+                    const m = month[data.getMonth()];
                     dispatch({ 
                         type: "task-monthly", 
                         value: { 
