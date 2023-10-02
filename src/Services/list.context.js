@@ -45,12 +45,10 @@ const reducer = async (state, action) => {
             //     }
 
             // } 
-            // console.log(JSON.parse(data));
             if(obj == null){
                 await AsyncStorage.setItem("@task-hourly", JSON.stringify([
                     { task: value.task, time: value.time, completed: false }
                 ]))
-                // console.log(obj);
             }
             else{
                 const newObj = JSON.parse(obj) //.push({ task: value.task, time: value.time, completed: false });
@@ -67,10 +65,9 @@ const reducer = async (state, action) => {
                 await AsyncStorage.setItem("@task-daily", JSON.stringify([
                     { task: value.task, day: value.day, completed: false }
                 ]))
-                // console.log(obj);
             }
             else{
-                const newObj = JSON.parse(obj2) //.push({ task: value.task, time: value.time, completed: false });
+                const newObj = JSON.parse(obj2) 
                 newObj.push({ task: value.task, day: value.day, completed: false })
                 await AsyncStorage.setItem("@task-daily", JSON.stringify(newObj));
             }
@@ -84,7 +81,6 @@ const reducer = async (state, action) => {
                 await AsyncStorage.setItem("@task-monthly", JSON.stringify([
                     { task: value.task, month: value.month, completed: false }
                 ]))
-                // console.log(obj);
             }
             else{
                 const newObj = JSON.parse(obj3) //.push({ task: value.task, time: value.time, completed: false });

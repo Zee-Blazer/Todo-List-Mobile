@@ -41,10 +41,6 @@ export const TaskScreen = () => {
         setRefresh(false);
     }
 
-    useEffect( () => {
-        console.log(monthly)
-    }, [monthly] )
-
     return (
         <View style={ HomeStyle.body }>
             <LogoHeader type="Task" />
